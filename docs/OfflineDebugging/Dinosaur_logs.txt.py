@@ -7,12 +7,12 @@
     export TRACE_LEVEL=3
 # and restart the program.
 
-
-# In the ntrace module:
 try:
     tracelevel = int(os.getenv("TRACE_LEVEL", defaultlevel))
 except ValueError:  # Take default if not int
     pass
+
+Beware: the value returned is always a string even if it looks like an int
 
 
 Currently implemented:
@@ -91,6 +91,9 @@ def fnbValidateDir(sPath):
 20210108_130214 1       entr fnbValidateDir args=('../hl/a0',),kw={}
  . . . 
 20210108_130214 1       exit fnbValidateDir result|True|
+
+
+######### INSTANCE IDENTIFIERS ###########
 
 --------------------------------------------------------------------------------
 
@@ -277,17 +280,56 @@ NTRC = CSingletonNewTrace()
                 args[1:],kwargs))
 
 
-############ MODULE ACTUALLY CONTAINS #############
-
 ton of comments
 ntrace and ntracef functions
+
+
+############ MODULE ACTUALLY CONTAINS #############
 singleton instance
 @ntrace and @ntracef decorators
 
 
+############ BEGINNER DECOARATOR EXAMPLE #############
+
+def my_decorator(func): 
+    def wrapper(): 
+        print("Before the function is called.") 
+        result = func() 
+        print("After the function is called.") 
+        return result
+    return wrapper 
+
+use as 
+
+@my_decorator
+def add(a, b):
+    return a+b
 
 
+############ TIMESTAMP #############
+
+def fnsGetTimestamp(self):
+    '''Return timestamp with or without milliseconds.
+    '''
+    if self.btimehires:
+        return datetime.now().strftime('%Y%m%d_%H%M%S.%f')[:-3]
+    else:
+        return datetime.now().strftime('%Y%m%d_%H%M%S')
+
+==>
+	20201103_153703.284
+  or
+	20201103_153703
 
 
+############ LOOKING AT OUTPUT #############
+
+export TRACE_LEVEL=3
+python whateverprogram.py 2>&1 | less
+
+less makes it easy to scroll and search in output file
+
+
+############ #############
 
 
