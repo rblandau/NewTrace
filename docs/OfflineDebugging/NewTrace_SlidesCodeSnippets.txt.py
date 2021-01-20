@@ -82,7 +82,7 @@ except ValueError:  # Take default if not int
 
 Beware: the value returned is always a string even if it looks like an int
 
-
+(more)
 
 
 
@@ -168,10 +168,10 @@ less makes it easy to scroll and search in output file
 # Cheap way to make unique IDs for class instances.
 import  itertools
     . . . 
-    <global to the class>
+    #<global to the class>
     getID = itertools.count(1).next
         . . . 
-        <in __init__>
+        #<in __init__>
         self.ID = "V" + str(self.getID())
 
 # yields a stream of IDs: V1, V2, V3, . . . 
@@ -205,8 +205,8 @@ def fnSortIDDict(dIn):
 ######### FUNCTION DECORATORS ###########
 
 # Import module to get singleton instance and decorators
-from NewTrace import NTRC, ntrace, ntracef
 
+from NewTrace import NTRC, ntrace, ntracef
 
 
 
@@ -447,7 +447,7 @@ class CServer(object):
 # Tutti-fruity version of function call.
 @ntracef("UTIL", level=5)
 def fnsGetTimeStamp():
-
+ . . . 
 
 
 
