@@ -48,7 +48,7 @@ def add(a, b):
 def fnsGetTimestamp(self):
     '''Return timestamp with or without milliseconds.
     '''
-    if self.btimehires:
+    if self.bTimeHires:
         return datetime.now().strftime('%Y%m%d_%H%M%S.%f')[:-3]
     else:
         return datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -118,10 +118,10 @@ TRACE_PRODUCTION    turn off all tracing
 ############ LOOKING AT OUTPUT #############
 
 export TRACE_LEVEL=3
-python whateverprogram.py 2>&1 | less
+python whateverprogram.py  2>&1  | less
 
-less makes it easy to scroll and search in output file
 
+less makes it easy to scroll and search in output stream
 
 
 
@@ -141,8 +141,6 @@ less makes it easy to scroll and search in output file
 
 ######### INSTANCE IDENTIFIERS ###########
 
---------------------------------------------------------------------------------
-
 # Note use of string identifiers for instances rather than actual instance pointers.
 # Takes time (one dictionary lookup, not a big deal) but saves lives.  
 20210107_222605 1 COPY  entr __init__ <cls=CCopy id=||> |('D17', 'T1', 'V1')| kw={}
@@ -158,10 +156,7 @@ less makes it easy to scroll and search in output file
 20210107_222605 1 DOC   exit __init__ <cls=CDocument id=|D9706|> result|None|
 
 
-
-
-
-
+(more)
 
 --------------------------------------------------------------------------------
 
@@ -169,6 +164,7 @@ less makes it easy to scroll and search in output file
 import  itertools
     . . . 
     #<global to the class>
+    # Note: getID is the itertools function.
     getID = itertools.count(1).next
         . . . 
         #<in __init__>
@@ -202,9 +198,37 @@ def fnSortIDDict(dIn):
 
 
 
-######### FUNCTION DECORATORS ###########
+######### IF PRODUCTION MODE ###########
 
-# Import module to get singleton instance and decorators
+# If in PRODUCTION mode, skip over all the printing.
+    def ntrace(self, level, line):
+        if (not self.isProduction() or level == 0):
+            # (real trace code)
+         . . .         
+        else:       # If in production mode and level > 0
+            pass    #  do nothing.
+
+--------------------------------------------------------------------------------
+
+# Same for the decorator definitions.
+if NTRC.isProduction():
+    def ntrace(func):
+        return func     # Null decorator, does nothing.
+else:
+    def ntrace(func):
+        @wraps(func)
+        def wrapper(*args,**kwargs):)
+         . . . 
+        return wrapper
+
+
+
+
+
+
+######### IMPORTS ###########
+
+# Import module to get singleton instance and decorator functions
 
 from NewTrace import NTRC, ntrace, ntracef
 
@@ -228,7 +252,7 @@ from NewTrace import NTRC, ntrace, ntracef
 
 ############ SINGLETON INSTANCE OF CLASS #############
 
-# Make a singleton of the NewTrace instance.  
+# Make a singleton of the NewTrace instance (from ActivePython).  
 class Singleton(type):
     _instances = {}
     def __call__(cls,*args,**kwargs):
