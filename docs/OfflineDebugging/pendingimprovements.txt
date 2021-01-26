@@ -1,0 +1,25 @@
+Improvements to be made to NewTrace
+                RBLandau 20210125
+
+* FIXME: HTML output to specify prefix and suffix strings.
+Currently only <br/> prefix, but some user might want more.
+Probalby leave <br/> as the default if HTML but not otherwise specified.
+
+* FIXME: production mode should permit Y as well as YES.
+do getenv(...).upper().startswith("Y") instead of =="YES" currently.
+
+* FIXME: optimize yes/no checking of facility name.
+Probably lists or dictionaries of names with 0/1 answers, 
+added as they are encountered during run.  
+Not very common but might be good anyway. 
+
+* FIXME: thread-safe.
+Thread lock anytime state is changed, e.g., printing.
+
+* FIXME: multiprocessor-safe.
+Don't know how to guarantee this across operating systems:
+Windows, several Linices.  
+
+
+
+
