@@ -20,7 +20,7 @@ This facility is **not** intended to do the same job as the Python logging facil
 
 Use it as you would print() statements that you use to debug code, but leave it installed permanently in the production code and just turn it off with appropriate environment variables.  
 
-## Hiatory
+## History
 
 NewTrace tracelog facility for Python 2 and 3.
 
