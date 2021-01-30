@@ -82,9 +82,9 @@ except ValueError:  # Take default if not int
 
 Beware: the value returned is always a string even if it looks like an int
 
+
+
 (more)
-
-
 
 
 
@@ -121,7 +121,7 @@ export TRACE_LEVEL=3
 python whateverprogram.py  2>&1  | less
 
 
-less makes it easy to scroll and search in output stream
+'less' utility makes it easy to scroll and search in output stream
 
 
 
@@ -175,7 +175,7 @@ import  itertools
 
 --------------------------------------------------------------------------------
 
-# Not hard to sort a dictionary of IDs by number
+# Sort a dictionary of IDs by number
 #  so you get [A1, A2, A11, A12] instead of [A1, A11, A12, A2].
 @ntracef("UTIL")
 def fnSortIDDict(dIn):
@@ -211,15 +211,15 @@ def fnSortIDDict(dIn):
 --------------------------------------------------------------------------------
 
 # Same for the decorator definitions.
-if NTRC.isProduction():
-    def ntrace(func):
-        return func     # Null decorator, does nothing.
-else:
-    def ntrace(func):
-        @wraps(func)
-        def wrapper(*args,**kwargs):)
-         . . . 
-        return wrapper
+    if NTRC.isProduction():
+        def ntrace(func):
+            return func     # Null decorator, does nothing.
+    else:
+        def ntrace(func):
+            @wraps(func)
+            def wrapper(*args,**kwargs):)
+             . . . 
+            return wrapper
 
 --------------------------------------------------------------------------------
 
@@ -294,7 +294,7 @@ NTRC.tracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 
 
 
-
+(more)
 
 
 
@@ -319,7 +319,7 @@ NTRC.tracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 
 
 
-
+(more)
 
 
 
@@ -327,7 +327,8 @@ NTRC.tracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 
 --------------------------------------------------------------------------------
 
-# Priority level 0 can be used for lines that should *always* print.  
+# Priority level 0 can be used for lines that should *always* print, 
+#  even in production mode.  
 20210107_222604 0 MAIN  proc Document Preservation simulation
  . . . 
 20210107_222608 0 MAIN  proc End time stats: wall|   4.011| cpu|   0.188|
@@ -341,9 +342,84 @@ NTRC.tracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 
 
 
+######### DECORATOR VERSIONS ###########
+
+# Vanilla version of function call with trace decorator.
+@ntrace
+def main(mysInputFilename):
+==>
+20210107_222604 1       entr main args=('params.txt'),kw={}
+ . . . 
+20210107_222606 1       exit main result|None|
+
+
+--------------------------------------------------------------------------------
+
+# Chocolate function call with facility name that can be filtered or searched.
+class CServer(object):
+ . . . 
+    @ntracef("SERV")
+    def __init__(self,mysName,mynQual,mynShelfSize):
+==>
+20210107_222604 1 SERV  entr __init__ <cls=CServer id=||> |('Desperate Backup 11', 1, 10)| kw={}
+ . . . 
+20210107_222604 1 SERV  exit __init__ <cls=CServer id=|V1|> result|None|
+# Note that class instance ID is listed on exit.
+
+(more)
+
+
+--------------------------------------------------------------------------------
+
+# Tutti-fruity version of function call.
+@ntracef("UTIL", level=5)
+def fnsGetTimeStamp():
+ . . . 
 
 
 
+--------------------------------------------------------------------------------
+
+# Can even declare multiple facilities for filtering later.
+# Facility code "SHOW" might be for things that I really, really want to see
+#  when I've filtered out everything else.  
+    @ntracef("SHOW")
+    @ntracef("SERV")
+    def __init__(self,mysName,mynQual,mynShelfSize):
+==>
+20210107_222604 1 SHOW  entr __init__ <cls=CServer id=||> |('Desperate Backup 11', 1, 10)| kw={}
+20210107_222604 1 SERV  entr __init__ <cls=CServer id=||> |('Desperate Backup 11', 1, 10)| kw={}
+ . . . 
+20210107_222604 1 SERV  exit __init__ <cls=CServer id=|V1|> result|None|
+20210107_222604 1 SHOW  exit __init__ <cls=CServer id=|V1|> result|None|
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+# Show return result on exit from function.
+@ntracef("READ")
+def fdGetParams(sFile, lGuide):
+==>
+20210107_222604 1 READ  entr fdGetParams args=('../hl/installtest/clients.csv', ['Institution', ['Collection', 'Quality', 'Count']]),kw={}
+ . . . 
+20210107_222604 1 READ  exit fdGetParams result|{'MIT': [['Mags', 1, 10]]}|
+
+or 
+
+@ntrace
+def fnbValidateDir(sPath):
+==>
+20210108_130214 1       entr fnbValidateDir args=('../hl/a0',),kw={}
+ . . . 
+20210108_130214 1       exit fnbValidateDir result|True|
 
 
 
@@ -411,133 +487,5 @@ NTRC.tracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 20210107_222604 PARAMS INFO - TRACE  traceproduction|False|
 20210107_222604 PARAMS INFO - CLIENT client|MIT| collection|Mags| quality|1| ndocs|10|
 20210107_222604 PARAMS INFO - ALLCLIENTS nDocuments|10000| override if nz
-
-
-
-
-
-
-
-
-
-
-######### DECORATOR VERSIONS ###########
-
-# Vanilla version of function call with trace decorator.
-@ntrace
-def main(mysInputFilename):
-==>
-20210107_222604 1       entr main args=('params.txt'),kw={}
- . . . 
-20210107_222606 1       exit main result|None|
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---------------------------------------------------------------------------------
-
-# Chocolate function call with facility name that can be filtered or searched.
-class CServer(object):
- . . . 
-    @ntracef("SERV")
-    def __init__(self,mysName,mynQual,mynShelfSize):
-==>
-20210107_222604 1 SERV  entr __init__ <cls=CServer id=||> |('Desperate Backup 11', 1, 10)| kw={}
- . . . 
-20210107_222604 1 SERV  exit __init__ <cls=CServer id=|V1|> result|None|
-# Note that class instance ID is listed on exit.
-
-
-
-
-
-
-
-
-
-
-
-
---------------------------------------------------------------------------------
-
-# Tutti-fruity version of function call.
-@ntracef("UTIL", level=5)
-def fnsGetTimeStamp():
- . . . 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---------------------------------------------------------------------------------
-
-# Can even declare multiple facilities for filtering later.
-# Facility code "SHOW" might be for things that I really, really want to see
-#  when I've filtered out everything else.  
-    @ntracef("SHOW")
-    @ntracef("SERV")
-    def __init__(self,mysName,mynQual,mynShelfSize):
-==>
-20210107_222604 1 SHOW  entr __init__ <cls=CServer id=||> |('Desperate Backup 11', 1, 10)| kw={}
-20210107_222604 1 SERV  entr __init__ <cls=CServer id=||> |('Desperate Backup 11', 1, 10)| kw={}
- . . . 
-20210107_222604 1 SERV  exit __init__ <cls=CServer id=|V1|> result|None|
-20210107_222604 1 SHOW  exit __init__ <cls=CServer id=|V1|> result|None|
-
-
-
-
-
-
-
-
-
-
---------------------------------------------------------------------------------
-
-# Show return result on exit from function.
-@ntracef("READ")
-def fdGetParams(sFile, lGuide):
-==>
-20210107_222604 1 READ  entr fdGetParams args=('../hl/installtest/clients.csv', ['Institution', ['Collection', 'Quality', 'Count']]),kw={}
- . . . 
-20210107_222604 1 READ  exit fdGetParams result|{'MIT': [['Mags', 1, 10]]}|
-
-or 
-
-@ntrace
-def fnbValidateDir(sPath):
-==>
-20210108_130214 1       entr fnbValidateDir args=('../hl/a0',),kw={}
- . . . 
-20210108_130214 1       exit fnbValidateDir result|True|
-
-
-
-
 
 
