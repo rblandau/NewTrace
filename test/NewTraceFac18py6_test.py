@@ -30,26 +30,13 @@ def testAllLevels():
     NTRC.ntrace(4,"test level 4")
     NTRC.ntrace(5,"test level 5")
 
-    NTRC.ntracef(0,"AAA","facil AAA at test level 0")
+
+def testFacils():
+    print("========== testFacils ============")
+    NTRC.ntrace(0,"test level 0")
+    NTRC.ntrace(1,"test level 1")
     NTRC.ntracef(1,"AAA","facil AAA at test level 1")
-    NTRC.ntracef(2,"AAA","facil AAA at test level 2")
-    NTRC.ntracef(3,"AAA","facil AAA at test level 3")
-    NTRC.ntracef(4,"AAA","facil AAA at test level 4")
-    NTRC.ntracef(5,"AAA","facil AAA at test level 5")
-
-    NTRC.ntracef(0,"BBB","facil BBB at test level 0")
-    NTRC.ntracef(1,"BBB","facil BBB at test level 1")
-    NTRC.ntracef(2,"BBB","facil BBB at test level 2")
-    NTRC.ntracef(3,"BBB","facil BBB at test level 3")
-    NTRC.ntracef(4,"BBB","facil BBB at test level 4")
-    NTRC.ntracef(5,"BBB","facil BBB at test level 5")
-
-    NTRC.ntracef(0,"aaa","facil aaa at test level 0")
-    NTRC.ntracef(1,"aaa","facil aaa at test level 1")
-    NTRC.ntracef(2,"Aaa","facil Aaa at test level 2")
-    NTRC.ntracef(3,"aAa","facil aAa at test level 3")
-    NTRC.ntracef(4,"aaA","facil aaA at test level 4")
-    NTRC.ntracef(5,"AaA","facil AaA at test level 5")
+    NTRC.ntracef(1,"BBB","facil AAA at test level 1")
 
 
 def testOneLevel():
@@ -59,74 +46,117 @@ def testOneLevel():
     NTRC.ntracef(0,"C","facil C at test level 0")
 
 
-def testAllForTarget(target, filename):
-    print("============ testAllForTarget =============")
-    setNewDefaults(NTRC, 0, target, filename)
+def testVariousLevels():
+    print("============ testVariousLevels =============")
+    setNewDefaults(NTRC, mylevel=0, mytarget=0, myfile="", 
+        myfacility="", mytime="", myhtml="", myproduction=0)
     testAllLevels()
-    setNewDefaults(NTRC, 1, target, "")
+    setNewDefaults(NTRC, mylevel=1, mytarget=0, myfile="", 
+        myfacility="", mytime="", myhtml="", myproduction=0)
     testAllLevels()
-    setNewDefaults(NTRC, 2, target, "")
-    testAllLevels()
-    setNewDefaults(NTRC, 3, target, "")
-    testAllLevels()
-    setNewDefaults(NTRC, 4, target, "")
-    testAllLevels()
-    setNewDefaults(NTRC, 5, target, "")
-    testAllLevels()
-    setNewDefaults(NTRC, 5, target, "", "AAA")
-    testOneLevel()
-    setNewDefaults(NTRC, 5, target, "", "BBB")
-    testAllLevels()
-    setNewDefaults(NTRC, 5, target, "", "donttraceme")
-    testAllLevels()
-    setNewDefaults(NTRC, 5, target, "", "ALL")
+    setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
+        myfacility="", mytime="", myhtml="", myproduction=0)
     testAllLevels()
 
-    setNewDefaults(NTRC, 5, target, "", "")
-    testOneLevel()
-    setNewDefaults(NTRC, 5, target, "", "all")
-    testOneLevel()
-    setNewDefaults(NTRC, 5, target, "", "none")
-    testOneLevel()
-    setNewDefaults(NTRC, 5, target, "", "-a")
-    testOneLevel()
-    setNewDefaults(NTRC, 5, target, "", "all-a")
-    testOneLevel()
-    setNewDefaults(NTRC, 5, target, "", "none+a")
-    testOneLevel()
+    
+def testAllFacils():
+    print("\n============ testAllFacils =============")
+    setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
+        myfacility="", mytime="", myhtml="", myproduction=0)
+    testFacils()
+
+    lFacils = ("'' ALL ALL-A ALL-AAA "
+                "NONE NONE+A NONE+AAA GIGO " 
+                "all-aaa none+aaa").split()
+    for sFacil in lFacils:
+        setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
+            myfacility=sFacil, mytime="", myhtml="", myproduction=0)
+        testFacils()
+
+
+def testAllTargets():
+    print("\n============ testAllTargets =============")
+    lTargets = [0,1,2,3,4,5,6,7]
+    for iTarget in lTargets:
+        setNewDefaults(NTRC, mylevel=5, mytarget=iTarget, 
+            myfile="test_NewTrace.log", 
+            myfacility="", mytime="", myhtml="", myproduction=0)
+        testFacils()
+
+
+def testAllHTMLs():
+    print("\n============ testAllHTMLs =============")
+    lHtmlStrings = "'' 0 | <BEG>|<END> <BEG> <beg>| |<end>".split()
+    for sHtml in lHtmlStrings:
+        setNewDefaults(NTRC, mylevel=5, mytarget=2, myfile="", 
+            myfacility="", mytime="", myhtml=sHtml, myproduction=0)
+        testFacils()
+        
+
+def testAllTimes():
+    print("\n============ testAllTimes =============")
+    lTimes = "'' 0 YES NO".split()
+    for sTime in lTimes:
+        setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
+            myfacility="", mytime=sTime, myhtml="", myproduction=0)
+        testFacils()
+
+
 
 
 if 1:
     print ("============= Begin =============")
-    setNewDefaults(NTRC, mylevel=5, mytarget=0, 
-            myfile="", myfacility="none+a+aa+b", 
-            mytime="", myhtml="", myproduction=0)
+    setNewDefaults(NTRC, mylevel=6, mytarget=0, myfile="", 
+        myfacility="all-aaa", mytime="", myhtml="", myproduction=0)
     testAllLevels()
-    setNewDefaults(NTRC, mylevel=5, mytarget=0, 
-            myfile="", myfacility="all-a-aa-b", 
-            mytime="", myhtml="", myproduction=0)
-    testAllLevels()
-    setNewDefaults(NTRC, mylevel=5, mytarget=0, 
-            myfile="", myfacility="all-aaa", 
-            mytime="", myhtml="", myproduction=0)
-    testAllLevels()
+    
+    setNewDefaults(NTRC, mylevel=0, mytarget=0, myfile="", 
+        myfacility="all-aaa", mytime="", myhtml="", myproduction=0)
+    testVariousLevels()
+    setNewDefaults(NTRC, mylevel=3, mytarget=0, myfile="", 
+        myfacility="all-aaa", mytime="", myhtml="", myproduction=0)
+    testVariousLevels()
+    setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
+        myfacility="all-aaa", mytime="", myhtml="", myproduction=0)
+    testVariousLevels()
+
+    testAllFacils()
+
+    testAllTargets()
+
+    testAllHTMLs()
+    
+    testAllTimes()
+    
+
 
 
 if 0:
-    print("============== Test For Target ==============")
-    testAllForTarget(0, "test_NewTrace.log")
-    testAllForTarget(1, "test_NewTrace.log")
-    testAllForTarget(2, "test_NewTrace.log")
-    testAllForTarget(4, "test_NewTrace.log")
+    pass
 
-#END
+
+
 
 '''
 What I actually should be testing:
 
-- ntrace levels 0, 1
-
-
-
+- ntrace levels 0, 1, 5
+- target 0,1,2,4,5,6
+- file none, name.ext w target4, name.ext w target0
+- facil "",all,all-a,all=aaa,none,none+a,none+aaa,gigo
+- html "",|,<beg>|<end>,<beg>,<beg>|,|<end>
+- production "",YES,NO
 
 '''
+
+
+
+
+
+
+
+
+
+
+
+#END

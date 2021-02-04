@@ -293,7 +293,7 @@ class CNewTrace(object):
                 if self.lFacilExceptions[0] == "NONE":
                     self.bFacilDefault = False
 
-        self.btimehires = time
+        self.btimehires = bool(time)
 
         self.tracehtml = html
         (self.tracehtmlL, self.tracehtmlR) = "<br>| ".split("|")
