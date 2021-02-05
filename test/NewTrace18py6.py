@@ -132,10 +132,11 @@ from functools  import wraps
           YYYYMMDD_HHMMSS L  user-specified string
      or 
           YYYYMMDD_HHMMSS L FACIL user-specified string
-    HTML output is slightly different, includes a "<BR>" at the start 
-     of each line.  
       HH is the 24-hour hour.
       L is the level of detail specified for this trace line.
+    HTML output is slightly different, includes a "<BR>" at the start 
+     of each line, or whatever prefix and suffix are specified in 
+     the TRAC_HTML environment variable (q.v.).  
 
     Environment variables used by trace() are
       TRACE_LEVEL, TRACE_TARGET, TRACE_FILE, and TRACE_PRODUCTION.  
@@ -165,6 +166,7 @@ from functools  import wraps
                     If null, defaults to 1 (print on stdout).  
     TRACE_FILE;     # file: name of log file to trace into.
                     If null, defaults to "./newtrace.log".
+                    Output to a file does not include HTML tags.  
     TRACE_FACIL;    # list of facility names to be traced.
                     Normally a plus-or-minus-separated list of 
                      facility names that will be included in
@@ -183,11 +185,12 @@ from functools  import wraps
                      trace functions and decorators will attempt 
                      to use as little CPU resource as possible.
                      NOTE: ntraces at priority zero always print.
-    TRACE_TIME;     If nonempty, timestamps will include milliseconds.
+    TRACE_TIME;     If nonempty or nonzero integer, timestamps will 
+                     include milliseconds, in format "YYYYMMDD_HHMMSS.mmm".
     TRACE_HTML;     String specifying prefix and suffix for each
                      line emitted as HTML.
                      Syntax: "prefix|suffix", that is, the prefix
-                     string and suffix string separated by a 
+                     string and suffix strings separated by a 
                      vertical bar (sometimes called "pipe").  
                      Default is  "<br>| " if the environment
                      variable is absent or an empty string.
@@ -198,7 +201,7 @@ Python decorators:
 There are two new functions to use as Python decorators to
  report entry and exit of functions, including arguments in
  and return value out, painlessly.  
-Input arguments cannot be identified by the decorator version
+Input argument names cannot be identified by the decorator version
  of ntrace() and ntracef().  If you need individual identification 
  of input arguments, call the trace manually, as in the old days.  
     @ntrace             for calls with no facility code attached
@@ -206,7 +209,7 @@ Input arguments cannot be identified by the decorator version
 As usual, the facility code should be max four letters to preserve 
  alignment and should be all caps for legibility.  
 
-The @ntrace decorator prints entry at level 1 and exit at level 2.
+The @ntrace decorator prints function entry and exit at level 1 by default.
 
 The @ntracef() decorator also supports an optional level argument to change
  the trace level of the entry and exit lines.  This can be specified 
@@ -304,7 +307,21 @@ class CNewTrace(object):
                 (self.tracehtmlL, self.tracehtmlR) = ("|", "|")
 
         self.btraceproduction = production
+        
+        if 0:       # Did we get all the interpretations right?
+                    #  Typical problems with strings vs integers.
+            self.ntrace(0, "SETDEFAULTS  D E T A I L S")
+            self.ntrace(0, "level=|%s|, target=|%s|, file=|%s|, "
+                    "facility=|%s|, time=|%s|, html=|%s|, production=|%s|" 
+                    % (self.tracelevel, self.tracetarget, self.tracefile, 
+                        self.tracefacil, self.btimehires, 
+                        self.tracehtml, self.btraceproduction))
+            self.ntrace(0, "facildef|%s| except|%s| "
+                            "htmlL|%s| htmlR|%s|" 
+                        % (self.bFacilDefault, self.lFacilExceptions, 
+                                self.tracehtmlL, self.tracehtmlR))
         return
+
 
 # i s P r o d u c t i o n 
     def isProduction(self):
@@ -362,12 +379,13 @@ class CNewTrace(object):
             # If we are tracing at a high enough level to include this item, 
             #  then send it to the appropriate target(s).
             if level <= self.tracelevel:
-                # Now assess the facility: include Y or N?
-                self.facilcaps = facility.upper()
-                # Take facility default unless this one is an exception.
-                self.traceme = ((not self.bFacilDefault) 
-                                if self.facilcaps in self.lFacilExceptions
-                                else self.bFacilDefault)
+                # Now assess the facility: include line Y or N?
+                if facility:
+                    self.facilcaps = facility.upper()
+                    # Take facility default unless this one is an exception.
+                    self.traceme = ((not self.bFacilDefault) 
+                                    if self.facilcaps in self.lFacilExceptions
+                                    else self.bFacilDefault)
                 if self.traceme:
                     # Get a timestamp
                     self.ascT = self.fnsGetTimestamp()
@@ -493,10 +511,10 @@ else:
             if len(args)>0 and (repr(args[0]).find(" object ") >= 0
                             or (repr(args[0]).find(" instance ") >= 0)):
                 _id = getattr(args[0],"ID","")
-                NTRC.ntrace(2,"exit %s <cls=%s id=|%s|> result|%s|" 
+                NTRC.ntrace(1,"exit %s <cls=%s id=|%s|> result|%s|" 
                     % (func.__name__,args[0].__class__.__name__,_id,result))
             else:
-                NTRC.ntrace(2,"exit %s result|%s|" % (func.__name__,result))
+                NTRC.ntrace(1,"exit %s result|%s|" % (func.__name__,result))
             return result
         return wrap2
 
@@ -510,14 +528,14 @@ else:
         def wrap2(*args,**kwargs):
             TRC.trace(1,"entr %s args=%s,kw=%s" % (func.__name__,args,kwargs))
             result = func(*args,**kwargs)
-            TRC.trace(2,"exit %s result|%s|" % (func.__name__,result))
+            TRC.trace(1,"exit %s result|%s|" % (func.__name__,result))
             return result
         wrap2.__name__ = func.__name__
         return wrap2
 
+
 # Decorator with facility code and priority level.  
 # Facility code may be left blank to use priority or "self" printing.
-
 
 # NEW VERSION @ntracef
 if NTRC.isProduction():

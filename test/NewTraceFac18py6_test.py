@@ -21,8 +21,9 @@ def setNewDefaults(obj, mylevel=6, mytarget=0, myfile="", myfacility="",
             myhtml, myproduction))
 
 
+#  A L L   L E V E L S 
 def testAllLevels():
-    print("========== testAllLevels ============")
+    print("\n========== testAllLevels ============\n")
     NTRC.ntrace(0,"test level 0")
     NTRC.ntrace(1,"test level 1")
     NTRC.ntrace(2,"test level 2")
@@ -46,21 +47,27 @@ def testOneLevel():
     NTRC.ntracef(0,"C","facil C at test level 0")
 
 
+#     M  A  J  O  R     T  E  S  T  S  
+
+#  V A R I O U S   L E V E L S 
 def testVariousLevels():
-    print("============ testVariousLevels =============")
+    print("\n============ testVariousLevels =============\n")
     setNewDefaults(NTRC, mylevel=0, mytarget=0, myfile="", 
         myfacility="", mytime="", myhtml="", myproduction=0)
     testAllLevels()
+    
     setNewDefaults(NTRC, mylevel=1, mytarget=0, myfile="", 
         myfacility="", mytime="", myhtml="", myproduction=0)
     testAllLevels()
+    
     setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
         myfacility="", mytime="", myhtml="", myproduction=0)
     testAllLevels()
 
-    
+
+#  A L L   F A C I L I T I E S 
 def testAllFacils():
-    print("\n============ testAllFacils =============")
+    print("\n============ testAllFacils =============\n")
     setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
         myfacility="", mytime="", myhtml="", myproduction=0)
     testFacils()
@@ -74,8 +81,9 @@ def testAllFacils():
         testFacils()
 
 
+#  A L L   T A R G E T S 
 def testAllTargets():
-    print("\n============ testAllTargets =============")
+    print("\n============ testAllTargets =============\n")
     lTargets = [0,1,2,3,4,5,6,7]
     for iTarget in lTargets:
         setNewDefaults(NTRC, mylevel=5, mytarget=iTarget, 
@@ -83,60 +91,89 @@ def testAllTargets():
             myfacility="", mytime="", myhtml="", myproduction=0)
         testFacils()
 
+    setNewDefaults(NTRC, mylevel=5, mytarget=0, 
+        myfile="test_NewTrace_shouldnotbehere.log", 
+        myfacility="", mytime="", myhtml="", myproduction=0)
+    testOneLevel()
 
+
+#  A L L   H T M L S 
 def testAllHTMLs():
-    print("\n============ testAllHTMLs =============")
-    lHtmlStrings = "'' 0 | <BEG>|<END> <BEG> <beg>| |<end>".split()
+    print("\n============ testAllHTMLs =============\n")
+    lHtmlStrings = ["", 0, "00", "|", "<BEG>|<END>", "<BEG>", "<beg>|", "|<end>"]
     for sHtml in lHtmlStrings:
         setNewDefaults(NTRC, mylevel=5, mytarget=2, myfile="", 
             myfacility="", mytime="", myhtml=sHtml, myproduction=0)
         testFacils()
         
 
+#  A L L   T I M E S 
 def testAllTimes():
-    print("\n============ testAllTimes =============")
-    lTimes = [0, "", "YES", "NO"]
+    print("\n============ testAllTimes =============\n")
+    lTimes = [0, "", "00", "YES", "NO"]
     for sTime in lTimes:
         setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
             myfacility="", mytime=sTime, myhtml="", myproduction=0)
         testFacils()
 
 
+#  D E C O R A T O R   L E V E L S 
+def testAllDecoratorLevels():
+    print("\n========== testAllDecoratorLevels ============\n")
+    @ntrace
+    def testDecoPlain():
+        return "MePlain"
+    @ntracef("FANC", level=4)
+    def testDecoFancy1():
+        return "MeFancy1 elevated level"
+    @ntracef("", level=4)
+    def testDecoFancy2():
+        return "MeFancy2 elevated level no facility"
 
-# ENTRY POINT
+    setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
+        myfacility="", mytime="", myhtml="", myproduction=0)
+    testDecoPlain()
+    testDecoFancy1()
+    testDecoFancy2()
+
+
+#  E N T R Y   P O I N T 
 if 1:
     print ("============= Begin =============")
+    setNewDefaults(NTRC, mylevel=0, mytarget=0, myfile="", 
+        myfacility="", mytime="YES", myhtml="", myproduction=0)
+    NTRC.ntrace(0, "BEGIN")
+
     setNewDefaults(NTRC, mylevel=6, mytarget=0, myfile="", 
         myfacility="all-aaa", mytime="", myhtml="", myproduction=0)
     testAllLevels()
     
-    setNewDefaults(NTRC, mylevel=0, mytarget=0, myfile="", 
-        myfacility="all-aaa", mytime="", myhtml="", myproduction=0)
-    testVariousLevels()
-    setNewDefaults(NTRC, mylevel=3, mytarget=0, myfile="", 
-        myfacility="all-aaa", mytime="", myhtml="", myproduction=0)
-    testVariousLevels()
-    setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
-        myfacility="all-aaa", mytime="", myhtml="", myproduction=0)
     testVariousLevels()
 
     testAllFacils()
+
+    testAllDecoratorLevels()
 
     testAllTargets()
 
     testAllHTMLs()
     
     testAllTimes()
-    
+
+    setNewDefaults(NTRC, mylevel=0, mytarget=0, myfile="", 
+        myfacility="", mytime="YES", myhtml="", myproduction=0)
+    NTRC.ntrace(0, "DONE!")
+
 
 '''
 What I actually should be testing:
 
 - ntrace levels 0, 1, 5
-- target 0,1,2,4,5,6
-- file none, name.ext w target4, name.ext w target0
-- facil "",all,all-a,all=aaa,none,none+a,none+aaa,gigo
+- target 0,1,2,4,5,6,7
+- file none, name.ext w target=4, name.ext w target=0
+- facil "",all,all-a,all-aaa,none,none+a,none+aaa,gigo
 - html "",|,<beg>|<end>,<beg>,<beg>|,|<end>
+- time 0,"","0","YES","NO"
 - production "",YES,NO
 
 '''
