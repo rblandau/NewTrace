@@ -95,7 +95,7 @@ def testAllHTMLs():
 
 def testAllTimes():
     print("\n============ testAllTimes =============")
-    lTimes = "'' 0 YES NO".split()
+    lTimes = [0, "", "YES", "NO"]
     for sTime in lTimes:
         setNewDefaults(NTRC, mylevel=5, mytarget=0, myfile="", 
             myfacility="", mytime=sTime, myhtml="", myproduction=0)
@@ -103,7 +103,7 @@ def testAllTimes():
 
 
 
-
+# ENTRY POINT
 if 1:
     print ("============= Begin =============")
     setNewDefaults(NTRC, mylevel=6, mytarget=0, myfile="", 
@@ -129,14 +129,6 @@ if 1:
     testAllTimes()
     
 
-
-
-if 0:
-    pass
-
-
-
-
 '''
 What I actually should be testing:
 
@@ -148,15 +140,5 @@ What I actually should be testing:
 - production "",YES,NO
 
 '''
-
-
-
-
-
-
-
-
-
-
 
 #END
