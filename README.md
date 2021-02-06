@@ -235,10 +235,10 @@ to return with as little work as possible.
 
 ## Time Resolution: Seconds or Milliseconds
 
-If the environment variable `TRACE_TIME` is nonempty, timestamps will include milliseconds.
+If the environment variable `TRACE_TIME` is nonempty string or nonzero integer, timestamps will include milliseconds in the format `YYYYMMDD_HHMMSS.mmm`.
 
 
-## Future improvements
+## Future improvements desired
 
 * FIXME: HTML output to specify prefix and suffix strings.  Currently only <br/> prefix, but some user might want more.
 
@@ -264,7 +264,7 @@ Windows, several Linices.
 
 * FIXME: find better syntax than TRACE_TARGET bitmask.
 
-    And make sure that TRACE_LOCATION is used if it is nonempty 
+    And make sure that TRACE_FILE is used if it is nonempty 
 regardless of the bitmask.  
 
 

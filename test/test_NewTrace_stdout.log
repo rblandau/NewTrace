@@ -1,20 +1,20 @@
-20210205_180922 1       DEBUGTRACE info level|7| targets|5| facil|| file|| time|False| html|<br>| | production|False|
-20210205_180922 1       DEBUGTRACE info level|7| targets|5| facil|| file|| time|False| html|<br>| | production|False|
+20210205_185853.837 1       DEBUGTRACE info level|7| targets|5| facil|| file|| time|True| html|<br/>| | production|NO|
+20210205_185854.142 1       DEBUGTRACE info level|7| targets|5| facil|| file|| time|True| html|<br/>| | production|NO|
 ============= Begin =============
 
 setNewDef: level=|0| target=|0| file=|| facility=|| time=|YES| html=|| production|0|
-20210205_180923.233 0       BEGIN
+20210205_185854.447 0       BEGIN
 
 setNewDef: level=|6| target=|0| file=|| facility=|all-aaa| time=|| html=|| production|0|
 
 ========== testAllLevels ============
 
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 2       test level 2
-20210205_180923 3       test level 3
-20210205_180923 4       test level 4
-20210205_180923 5       test level 5
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 2       test level 2
+20210205_185854 3       test level 3
+20210205_185854 4       test level 4
+20210205_185854 5       test level 5
 
 ============ testVariousLevels =============
 
@@ -23,266 +23,266 @@ setNewDef: level=|0| target=|0| file=|| facility=|| time=|| html=|| production|0
 
 ========== testAllLevels ============
 
-20210205_180923 0       test level 0
+20210205_185854 0       test level 0
 
 setNewDef: level=|1| target=|0| file=|| facility=|| time=|| html=|| production|0|
 
 ========== testAllLevels ============
 
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|| time=|| html=|| production|0|
 
 ========== testAllLevels ============
 
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 2       test level 2
-20210205_180923 3       test level 3
-20210205_180923 4       test level 4
-20210205_180923 5       test level 5
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 2       test level 2
+20210205_185854 3       test level 3
+20210205_185854 4       test level 4
+20210205_185854 5       test level 5
 
 ============ testAllFacils =============
 
 
 setNewDef: level=|5| target=|0| file=|| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|''| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|ALL| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|ALL-A| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|ALL-AAA| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|NONE| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|NONE+A| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|NONE+AAA| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|GIGO| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|all-aaa| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|none+aaa| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
 
 ========== testAllDecoratorLevels ============
 
 
 setNewDef: level=|5| target=|0| file=|| facility=|| time=|| html=|| production|0|
-20210205_180923 1       entr testDecoPlain args=(),kw={}
-20210205_180923 1       exit testDecoPlain result|MePlain|
-20210205_180923 4 FANC  entr testDecoFancy1 args=(),kw={}
-20210205_180923 4 FANC  exit testDecoFancy1 result|MeFancy1 elevated level|
-20210205_180923 4       entr testDecoFancy2 args=(),kw={}
-20210205_180923 4       exit testDecoFancy2 result|MeFancy2 elevated level no facility|
+20210205_185854 1       entr testDecoPlain args=(),kw={}
+20210205_185854 1       exit testDecoPlain result|MePlain|
+20210205_185854 4 FANC  entr testDecoFancy1 args=(),kw={}
+20210205_185854 4 FANC  exit testDecoFancy1 result|MeFancy1 elevated level|
+20210205_185854 4       entr testDecoFancy2 args=(),kw={}
+20210205_185854 4       exit testDecoFancy2 result|MeFancy2 elevated level no facility|
 
 ============ testAllTargets =============
 
 
 setNewDef: level=|5| target=|0| file=|test_NewTrace.log| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|1| file=|test_NewTrace.log| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|2| file=|test_NewTrace.log| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-<br>20210205_180923 0       test level 0 
-<br>20210205_180923 1       test level 1 
-<br>20210205_180923 1 AAA   facil AAA at test level 1 
-<br>20210205_180923 1 BBB   facil AAA at test level 1 
+<br/>20210205_185854 0       test level 0 
+<br/>20210205_185854 1       test level 1 
+<br/>20210205_185854 1 AAA   facil AAA at test level 1 
+<br/>20210205_185854 1 BBB   facil AAA at test level 1 
 
 setNewDef: level=|5| target=|3| file=|test_NewTrace.log| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-<br>20210205_180923 0       test level 0 
-<br>20210205_180923 1       test level 1 
-<br>20210205_180923 1 AAA   facil AAA at test level 1 
-<br>20210205_180923 1 BBB   facil AAA at test level 1 
+<br/>20210205_185854 0       test level 0 
+<br/>20210205_185854 1       test level 1 
+<br/>20210205_185854 1 AAA   facil AAA at test level 1 
+<br/>20210205_185854 1 BBB   facil AAA at test level 1 
 
 setNewDef: level=|5| target=|4| file=|test_NewTrace.log| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
 
 setNewDef: level=|5| target=|5| file=|test_NewTrace.log| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|6| file=|test_NewTrace.log| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-<br>20210205_180923 0       test level 0 
-<br>20210205_180923 1       test level 1 
-<br>20210205_180923 1 AAA   facil AAA at test level 1 
-<br>20210205_180923 1 BBB   facil AAA at test level 1 
+<br/>20210205_185854 0       test level 0 
+<br/>20210205_185854 1       test level 1 
+<br/>20210205_185854 1 AAA   facil AAA at test level 1 
+<br/>20210205_185854 1 BBB   facil AAA at test level 1 
 
 setNewDef: level=|5| target=|7| file=|test_NewTrace.log| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-<br>20210205_180923 0       test level 0 
-<br>20210205_180923 1       test level 1 
-<br>20210205_180923 1 AAA   facil AAA at test level 1 
-<br>20210205_180923 1 BBB   facil AAA at test level 1 
+<br/>20210205_185854 0       test level 0 
+<br/>20210205_185854 1       test level 1 
+<br/>20210205_185854 1 AAA   facil AAA at test level 1 
+<br/>20210205_185854 1 BBB   facil AAA at test level 1 
 
 setNewDef: level=|5| target=|0| file=|test_NewTrace_shouldnotbehere.log| facility=|| time=|| html=|| production|0|
 ============ testOneLevel =============
-20210205_180923 0 A     facil A at test level 0
-20210205_180923 0 B     facil B at test level 0
-20210205_180923 0 C     facil C at test level 0
+20210205_185854 0 A     facil A at test level 0
+20210205_185854 0 B     facil B at test level 0
+20210205_185854 0 C     facil C at test level 0
 
 ============ testAllHTMLs =============
 
 
 setNewDef: level=|5| target=|2| file=|| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-<br>20210205_180923 0       test level 0 
-<br>20210205_180923 1       test level 1 
-<br>20210205_180923 1 AAA   facil AAA at test level 1 
-<br>20210205_180923 1 BBB   facil AAA at test level 1 
+<br/>20210205_185854 0       test level 0 
+<br/>20210205_185854 1       test level 1 
+<br/>20210205_185854 1 AAA   facil AAA at test level 1 
+<br/>20210205_185854 1 BBB   facil AAA at test level 1 
 
 setNewDef: level=|5| target=|2| file=|| facility=|| time=|| html=|0| production|0|
 ========== testFacils ============
-<br>20210205_180923 0       test level 0 
-<br>20210205_180923 1       test level 1 
-<br>20210205_180923 1 AAA   facil AAA at test level 1 
-<br>20210205_180923 1 BBB   facil AAA at test level 1 
+<br/>20210205_185854 0       test level 0 
+<br/>20210205_185854 1       test level 1 
+<br/>20210205_185854 1 AAA   facil AAA at test level 1 
+<br/>20210205_185854 1 BBB   facil AAA at test level 1 
 
 setNewDef: level=|5| target=|2| file=|| facility=|| time=|| html=|00| production|0|
 ========== testFacils ============
-|20210205_180923 0       test level 0|
-|20210205_180923 1       test level 1|
-|20210205_180923 1 AAA   facil AAA at test level 1|
-|20210205_180923 1 BBB   facil AAA at test level 1|
+|20210205_185854 0       test level 0|
+|20210205_185854 1       test level 1|
+|20210205_185854 1 AAA   facil AAA at test level 1|
+|20210205_185854 1 BBB   facil AAA at test level 1|
 
 setNewDef: level=|5| target=|2| file=|| facility=|| time=|| html=||| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|2| file=|| facility=|| time=|| html=|<BEG>|<END>| production|0|
 ========== testFacils ============
-<BEG>20210205_180923 0       test level 0<END>
-<BEG>20210205_180923 1       test level 1<END>
-<BEG>20210205_180923 1 AAA   facil AAA at test level 1<END>
-<BEG>20210205_180923 1 BBB   facil AAA at test level 1<END>
+<BEG>20210205_185854 0       test level 0<END>
+<BEG>20210205_185854 1       test level 1<END>
+<BEG>20210205_185854 1 AAA   facil AAA at test level 1<END>
+<BEG>20210205_185854 1 BBB   facil AAA at test level 1<END>
 
 setNewDef: level=|5| target=|2| file=|| facility=|| time=|| html=|<BEG>| production|0|
 ========== testFacils ============
-|20210205_180923 0       test level 0|
-|20210205_180923 1       test level 1|
-|20210205_180923 1 AAA   facil AAA at test level 1|
-|20210205_180923 1 BBB   facil AAA at test level 1|
+|20210205_185854 0       test level 0|
+|20210205_185854 1       test level 1|
+|20210205_185854 1 AAA   facil AAA at test level 1|
+|20210205_185854 1 BBB   facil AAA at test level 1|
 
 setNewDef: level=|5| target=|2| file=|| facility=|| time=|| html=|<beg>|| production|0|
 ========== testFacils ============
-<beg>20210205_180923 0       test level 0
-<beg>20210205_180923 1       test level 1
-<beg>20210205_180923 1 AAA   facil AAA at test level 1
-<beg>20210205_180923 1 BBB   facil AAA at test level 1
+<beg>20210205_185854 0       test level 0
+<beg>20210205_185854 1       test level 1
+<beg>20210205_185854 1 AAA   facil AAA at test level 1
+<beg>20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|2| file=|| facility=|| time=|| html=||<end>| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0<end>
-20210205_180923 1       test level 1<end>
-20210205_180923 1 AAA   facil AAA at test level 1<end>
-20210205_180923 1 BBB   facil AAA at test level 1<end>
+20210205_185854 0       test level 0<end>
+20210205_185854 1       test level 1<end>
+20210205_185854 1 AAA   facil AAA at test level 1<end>
+20210205_185854 1 BBB   facil AAA at test level 1<end>
 
 ============ testAllTimes =============
 
 
 setNewDef: level=|5| target=|0| file=|| facility=|| time=|0| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|| time=|| html=|| production|0|
 ========== testFacils ============
-20210205_180923 0       test level 0
-20210205_180923 1       test level 1
-20210205_180923 1 AAA   facil AAA at test level 1
-20210205_180923 1 BBB   facil AAA at test level 1
+20210205_185854 0       test level 0
+20210205_185854 1       test level 1
+20210205_185854 1 AAA   facil AAA at test level 1
+20210205_185854 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|| time=|00| html=|| production|0|
 ========== testFacils ============
-20210205_180923.252 0       test level 0
-20210205_180923.252 1       test level 1
-20210205_180923.252 1 AAA   facil AAA at test level 1
-20210205_180923.252 1 BBB   facil AAA at test level 1
+20210205_185854.464 0       test level 0
+20210205_185854.464 1       test level 1
+20210205_185854.464 1 AAA   facil AAA at test level 1
+20210205_185854.464 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|| time=|YES| html=|| production|0|
 ========== testFacils ============
-20210205_180923.252 0       test level 0
-20210205_180923.252 1       test level 1
-20210205_180923.252 1 AAA   facil AAA at test level 1
-20210205_180923.252 1 BBB   facil AAA at test level 1
+20210205_185854.464 0       test level 0
+20210205_185854.464 1       test level 1
+20210205_185854.464 1 AAA   facil AAA at test level 1
+20210205_185854.464 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|5| target=|0| file=|| facility=|| time=|NO| html=|| production|0|
 ========== testFacils ============
-20210205_180923.252 0       test level 0
-20210205_180923.252 1       test level 1
-20210205_180923.252 1 AAA   facil AAA at test level 1
-20210205_180923.252 1 BBB   facil AAA at test level 1
+20210205_185854.464 0       test level 0
+20210205_185854.464 1       test level 1
+20210205_185854.464 1 AAA   facil AAA at test level 1
+20210205_185854.464 1 BBB   facil AAA at test level 1
 
 setNewDef: level=|0| target=|0| file=|| facility=|| time=|YES| html=|| production|0|
-20210205_180923.252 0       DONE!
+20210205_185854.464 0       DONE!

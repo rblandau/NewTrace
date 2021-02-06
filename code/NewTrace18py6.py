@@ -246,11 +246,10 @@ class CNewTrace(object):
         self.getDefaults()
 
 
-# g e t D e f a u l t s 
     def getDefaults(self, mylevel=7, mytarget=5, myfile="", myfacil=""):
         '''Collect defaults from the environment. '''
-        traceproduction = (os.getenv("TRACE_PRODUCTION", "NO"))
-        timehires = (not (os.getenv("TRACE_TIME", "")))
+        btraceproduction = (os.getenv("TRACE_PRODUCTION", "NO") == "YES")
+        btimehires = (not (os.getenv("TRACE_TIME", "") == ""))
         try:
             tracelevel = int(os.getenv("TRACE_LEVEL", mylevel))
         except ValueError:      # If not integer, take default.
@@ -261,24 +260,23 @@ class CNewTrace(object):
             pass
         tracefile = os.getenv("TRACE_FILE", myfile)
         tracefacil = os.getenv("TRACE_FACIL", myfacil).upper()
-        tracehtml = os.getenv("TRACE_HTML", "<br/>| ")
+        tracehtml = os.getenv("TRACE_HTML", "<br>| ")
             
         self.setDefaults(tracelevel, tracetarget, tracefile, tracefacil, 
-                timehires, tracehtml, traceproduction)
-        btraceproduction = str(traceproduction).upper().startswith("Y")
-        if not (btraceproduction):  # If normal mode
+                btimehires, tracehtml, btraceproduction)
+        if not btraceproduction:    # If normal mode
             if tracelevel > 0:
                 self.ntrace(1, "DEBUGTRACE info level|%s| targets|%s| "
                             "facil|%s| file|%s| "
                             "time|%s| html|%s| production|%s|" 
                     % (tracelevel, tracetarget, 
                         tracefacil, tracefile, 
-                        timehires, tracehtml, traceproduction))
+                        btimehires, tracehtml, btraceproduction))
 
 
 # s e t D e f a u l t s 
     def setDefaults(self, level=0, target=1, file="newtrace.log",
-            facility="", time="", html="", production=""):
+            facility="", time="", html="", production=0):
         ''' Set all defaults so we can test from outside.'''
 
         self.tracelevel = level
@@ -301,15 +299,15 @@ class CNewTrace(object):
         self.btimehires = bool(time)
 
         self.tracehtml = html
-        (self.tracehtmlL, self.tracehtmlR) = "<br/>| ".split("|")
+        (self.tracehtmlL, self.tracehtmlR) = "<br>| ".split("|")
         if self.tracehtml:
             try:
                 (self.tracehtmlL, self.tracehtmlR) = html.split("|")
             except ValueError:      # If not splittable, bad syntax
                 (self.tracehtmlL, self.tracehtmlR) = ("|", "|")
 
-        self.btraceproduction = str(production).upper().startswith("Y")
-
+        self.btraceproduction = production
+        
         if 0:       # Did we get all the interpretations right?
                     #  Typical problems with strings vs integers.
             self.ntrace(0, "SETDEFAULTS  D E T A I L S")
@@ -653,9 +651,6 @@ else:
 #               Separate getting and setting the environmental defaults
 #                to make it easier to test using setDefaults().
 #               Redo facility checking in ntracef() for runtime performance.  
-#               Correct <br> to <br/>, duh.  
-#               Let TRACE_PRODUCTION just start with "y", not requiring the 
-#                whole word "YES".  And permit lower case.  
 # 
 # 
 
