@@ -45,6 +45,8 @@ def add(a, b):
 
 ############ TIMESTAMP #############
 
+import datetime
+ . . . 
 def fnsGetTimestamp(self):
     '''Return timestamp with or without milliseconds.
     '''
@@ -78,17 +80,13 @@ def fnsGetTimestamp(self):
 try:
     tracelevel = int(os.getenv("TRACE_LEVEL", defaultlevel))
 except ValueError:  # Take default if not int
-    pass
+    tracelevel = int(defaultlevel)
 
-Beware: the value returned is always a string even if it looks like an int
+Beware: the value returned from getenv() is always a string even if it looks like an int
 
 
 
 (more)
-
-
-
-
 
 
 Currently implemented:
@@ -129,65 +127,6 @@ python whateverprogram.py  2>&1  | less
 
 
 
-
-
-
-
-
-
-
-
-
-
-######### INSTANCE IDENTIFIERS ###########
-
-# Note use of string identifiers for instances rather than actual instance pointers.
-# Takes time (one dictionary lookup, not a big deal) but saves lives.  
-20210107_222605 1 COPY  entr __init__ <cls=CCopy id=||> |('D17', 'T1', 'V1')| kw={}
- . . . 
-20210107_222605 1 COPY  exit __init__ <cls=CCopy id=|X17|> result|None|
-
---------------------------------------------------------------------------------
-
-# When you have many instances, it is much easier to pass string identifiers
-#  rather than instances.
-20210107_222605 1 DOC   entr __init__ <cls=CDocument id=||> |(50, 'T1', 'C1')| kw={}
-20210107_222605 3 DOC   proc init client|T1| created doc|D9706| size|50|
-20210107_222605 1 DOC   exit __init__ <cls=CDocument id=|D9706|> result|None|
-
-
-(more)
-
---------------------------------------------------------------------------------
-
-# Cheap way to make unique IDs for class instances.
-import  itertools
-    . . . 
-    #<global to the class>
-    # Note: getID is the itertools function.
-    getID = itertools.count(1).next
-        . . . 
-        #<in __init__>
-        self.ID = "V" + str(self.getID())
-
-# yields a stream of IDs: V1, V2, V3, . . . 
-
-
---------------------------------------------------------------------------------
-
-# Sort a dictionary of IDs by number
-#  so you get [A1, A2, A11, A12] instead of [A1, A11, A12, A2].
-@ntracef("UTIL")
-def fnSortIDDict(dIn):
-    '''
-    Sort a dictionary with keys of the form <letter><number>.
-    Return a tuple of item tuples from the dict in numeric key order.
-    (Readable code rather than unmaintainable one-liner.)
-    '''
-    lTmp1 = ((fnIntPlease(x[0][1:]), x) for x in dIn.items())
-    lTmp2 = sorted(lTmp1, key=lambda y: y[0])
-    lTmp3 = (z[1] for z in lTmp2)
-    return tuple(lTmp3)
 
 
 
@@ -466,6 +405,77 @@ def fnbValidateDir(sPath):
 20210108_183424.018 1 SHLF  exit mAcceptDocument <cls=CShelf id=|H01|> result|True|
 20210108_183424.018 3 SERV  proc mAddDocument serv|Desperate Backup 11| id|V1| docid|D9782| size|50| assigned to shelfid|H01| remaining|9510900|
 20210108_183424.018 1 SERV  exit mAddDocument <cls=CServer id=|V1|> result|V1+H01+D9782|
+
+
+
+
+
+
+
+######### INSTANCE IDENTIFIERS ###########
+
+# When you have many instances, it is much easier to pass string identifiers
+#  rather than instances (addresses).  
+# Note use of string identifiers for instances rather than actual instance pointers.
+# Takes little time (one dictionary lookup, not a big deal) but saves lives.  
+20210107_222605 1 DOC   entr __init__ <cls=CDocument id=||> |(50, 'T1', 'C1')| kw={}
+20210107_222605 3 DOC   proc init client|T1| created doc|D9706| size|50|
+20210107_222605 1 DOC   exit __init__ <cls=CDocument id=|D9706|> result|None|
+
+--------------------------------------------------------------------------------
+
+# Create id attribute in instance's __init__().
+20210107_222605 1 COPY  entr __init__ <cls=CCopy id=||> |('D17', 'T1', 'V1')| kw={}
+ . . . 
+20210107_222605 1 COPY  exit __init__ <cls=CCopy id=|X17|> result|None|
+
+
+(more)
+
+--------------------------------------------------------------------------------
+
+# Cheap way to make unique IDs for class instances.
+import  itertools
+    . . . 
+    #<global to the class>
+    # Note: getID() calls next() on the itertools count() function.
+    getID = itertools.count(1).next
+        . . . 
+        #<in __init__>
+        self.ID = "V" + str(self.getID())
+
+# yields a stream of IDs: V1, V2, V3, . . . 
+
+
+--------------------------------------------------------------------------------
+
+# Store the ID in a dictionary that translates to the instance
+#<in __init__>
+    self.ID = "D" + str(self.getID())
+    dID2Document[self.ID] = self
+
+# And get the instance back from the ID. 
+    cDoc = dID2Document[sDocID]
+
+
+--------------------------------------------------------------------------------
+
+# Sort a dictionary of IDs by number
+#  so you get [A1, A2, A11, A12] instead of [A1, A11, A12, A2].
+@ntracef("UTIL")
+def fnSortIDDict(dIn):
+    '''
+    Sort a dictionary with keys of the form <letter><number>.
+    Return a tuple of item tuples from the dict in numeric key order.
+    (Readable code rather than unmaintainable one-liner.)
+    '''
+    lTmp1 = ((fnIntPlease(x[0][1:]), x) for x in dIn.items())
+    lTmp2 = sorted(lTmp1, key=lambda y: y[0])
+    lTmp3 = (z[1] for z in lTmp2)
+    return tuple(lTmp3)
+
+
+
 
 
 
