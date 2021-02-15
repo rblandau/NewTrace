@@ -19,7 +19,7 @@ A Dinosaur and a Python Walk Into a Bar
 
 
 
-############ BEGINNER DECORATOR EXAMPLE #############
+############ BEGINNER DECORATOR EXAMPLE #############
 
 def my_decorator(func): 
     def wrapper(): 
@@ -44,7 +44,7 @@ def add(a, b):
 
 
 
-############ TIMESTAMP #############
+############ TIMESTAMP #############
 
 import datetime
  . . . 
@@ -70,7 +70,7 @@ def fnsGetTimestamp(self):
 
 
 
-######### ENVIRONMENT VARIABLE CONTROL ###########
+######### ENVIRONMENT VARIABLE CONTROL ###########
 
 # bash command in the shell:
     export some_env_var=some_value
@@ -114,7 +114,7 @@ TRACE_PRODUCTION    turn off all tracing
 
 
 
-############ LOOKING AT OUTPUT #############
+############ LOOKING AT OUTPUT #############
 
 export TRACE_LEVEL=3
 python whateverprogram.py  2>&1  | less
@@ -138,7 +138,7 @@ python whateverprogram.py  2>&1  | less
 
 
 
-######### IF PRODUCTION MODE ###########
+######### IF PRODUCTION MODE ###########
 
 # If in PRODUCTION mode, skip over all the printing.
     def ntrace(self, level, line):
@@ -169,7 +169,7 @@ export TRACE_PRODUCTION=YES
 
 
 
-######### IMPORTS ###########
+######### IMPORTS ###########
 
 # Import module to get singleton instance and decorator functions
 
@@ -193,7 +193,7 @@ from NewTrace import NTRC, ntrace, ntracef
 
 
 
-############ SINGLETON INSTANCE OF CLASS #############
+############ SINGLETON INSTANCE OF CLASS #############
 
 # Make a singleton of the NewTrace instance (from ActivePython).  
 class Singleton(type):
@@ -217,7 +217,7 @@ NTRC = CSingletonNewTrace()
 
 
 
-############ SPECIFIC INSERTED TRACE CALLS #############
+############ SPECIFIC INSERTED TRACE CALLS #############
 
 
 # Simple.  Just like sprinkling print() but more informative.
@@ -241,7 +241,7 @@ NTRC.ntracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 
 
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 # Less simple: contains a lot of information useful for debugging.  
         NTRC.ntracef(3, "SERV", "proc mAddDocument serv|%s| id|%s| "
@@ -266,7 +266,7 @@ NTRC.ntracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 
 
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 # Priority level 0 can be used for lines that should *always* print, 
 #  even in production mode.  
@@ -283,7 +283,7 @@ NTRC.ntracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 
 
 
-######### DECORATOR VERSIONS ###########
+######### DECORATOR VERSIONS ###########
 
 # Vanilla version of function call with trace decorator.
 @ntrace
@@ -343,7 +343,7 @@ def fnsGetTimeStamp():
 
 
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 # Show return result on exit from function.
 @ntracef("READ")
@@ -366,7 +366,7 @@ def fnbValidateDir(sPath):
 
 
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 # Easy to follow logic in the ntrace listing.  
 # Mainly entries and exits, with a few added trace lines.
@@ -390,7 +390,7 @@ def fnbValidateDir(sPath):
 
 
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 # All comes out in the same millisecond.  Processing impact light.  
 20210108_183424.018 1 SERV  entr mAddDocument <cls=CServer id=|V1|> |('D9782', 'T1')| kw={}
@@ -414,7 +414,7 @@ def fnbValidateDir(sPath):
 
 
 
-######### INSTANCE IDENTIFIERS ###########
+######### INSTANCE IDENTIFIERS ###########
 
 # When you have many instances, it is much easier to pass string identifiers
 #  rather than instances (addresses).  
@@ -449,7 +449,7 @@ import  itertools
 # yields a stream of IDs: V1, V2, V3, . . . 
 
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 # Store the ID in a dictionary that translates to the instance
 #<in __init__>
@@ -485,7 +485,7 @@ def fnSortIDDict(dIn):
 
 
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 # Log input and processing parameters for the run
 20210107_222604 MAIN INFO - Simulation parameters
