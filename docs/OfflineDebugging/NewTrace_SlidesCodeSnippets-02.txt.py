@@ -221,7 +221,7 @@ NTRC = CSingletonNewTrace()
 
 
 # Simple.  Just like sprinkling print() but more informative.
-    NTRC.ntracef(3, "READ", "proc fdGetParams1 file not found |%s|" % (mysFile))
+    NTRC.ntracef(3, "READ", "proc fdGetParams1 file not found |%s|" % (sFile))
 ==>
 20210107_222604 3 READ  proc fdGetParams1 file not found |../hl/servers.csv|
 
@@ -233,46 +233,10 @@ NTRC.ntracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 20210108_130214 3 FMT   proc FormatQuery item key|nDocSize| val|50| result|50|
 
 
-
-(more)
-
-
-
-
-
-
---------------------------------------------------------------------------------
-
-# Less simple: contains a lot of information useful for debugging.  
-        NTRC.ntracef(3, "SERV", "proc mAddDocument serv|%s| id|%s| "
-            "docid|%s| size|%s| assigned to shelfid|%s| remaining|%s|" 
-            % (self.sName, self.ID, mysDocID, cDoc.nSize, sShelfID, 
-            cShelf.nFreeSpace))
-# Note continued string on separate lines (easy with quotes), and 
-#  continued tuple of values (easy with parens).
-
-# Yes, "string % (values)" rather than f-strings because
+# Yes, "string % (values)" rather than f-strings or .format() because
 #  1.  Python 2 when starting out; 
 #  2.  I think it's actually more readable;
 #  3.  Dinosaur.
-==> 
-20210107_222605 3 SERV  proc mAddDocument serv|Desperate Backup 11| id|V1| docid|D2| size|50| assigned to shelfid|H01| remaining|9999900|
-
-
-
-(more)
-
-
-
-
-
---------------------------------------------------------------------------------
-
-# Priority level 0 can be used for lines that should *always* print, 
-#  even in production mode.  
-20210107_222604 0 MAIN  proc Document Preservation simulation
- . . . 
-20210107_222608 0 MAIN  proc End time stats: wall|   4.011| cpu|   0.188|
 
 
 
@@ -287,12 +251,11 @@ NTRC.ntracef(3, "FMT", "proc FormatQuery item key|%s| val|%s| result|%s|"
 
 # Vanilla version of function call with trace decorator.
 @ntrace
-def main(mysInputFilename):
+def main(sInputFilename):
 ==>
 20210107_222604 1       entr main args=('params.txt'),kw={}
  . . . 
 20210107_222606 1       exit main result|None|
-
 
 --------------------------------------------------------------------------------
 
@@ -300,50 +263,14 @@ def main(mysInputFilename):
 class CServer(object):
  . . . 
     @ntracef("SERV")
-    def __init__(self,mysName,mynQual,mynShelfSize):
+    def __init__(self,sName,nQual,nShelfSize):
 ==>
 20210107_222604 1 SERV  entr __init__ <cls=CServer id=||> |('Desperate Backup 11', 1, 10)| kw={}
  . . . 
 20210107_222604 1 SERV  exit __init__ <cls=CServer id=|V1|> result|None|
 # Note that class instance ID is listed on exit.
 
-(more)
-
-
 --------------------------------------------------------------------------------
-
-# Tutti-fruity version of function call.
-@ntracef("UTIL", level=5)
-def fnsGetTimeStamp():
- . . . 
-
-
-
---------------------------------------------------------------------------------
-
-# Can even declare multiple facilities for filtering later.
-# Facility code "SHOW" might be for things that I really, really want to see
-#  when I've filtered out everything else.  
-    @ntracef("SHOW")
-    @ntracef("SERV")
-    def __init__(self,mysName,mynQual,mynShelfSize):
-==>
-20210107_222604 1 SHOW  entr __init__ <cls=CServer id=||> |('Desperate Backup 11', 1, 10)| kw={}
-20210107_222604 1 SERV  entr __init__ <cls=CServer id=||> |('Desperate Backup 11', 1, 10)| kw={}
- . . . 
-20210107_222604 1 SERV  exit __init__ <cls=CServer id=|V1|> result|None|
-20210107_222604 1 SHOW  exit __init__ <cls=CServer id=|V1|> result|None|
-
-
-
-
-
-
-
-
-
-
---------------------------------------------------------------------------------
 
 # Show return result on exit from function.
 @ntracef("READ")
@@ -352,15 +279,6 @@ def fdGetParams(sFile, lGuide):
 20210107_222604 1 READ  entr fdGetParams args=('../hl/installtest/clients.csv', ['Institution', ['Collection', 'Quality', 'Count']]),kw={}
  . . . 
 20210107_222604 1 READ  exit fdGetParams result|{'MIT': [['Mags', 1, 10]]}|
-
-or 
-
-@ntrace
-def fnbValidateDir(sPath):
-==>
-20210108_130214 1       entr fnbValidateDir args=('../hl/a0',),kw={}
- . . . 
-20210108_130214 1       exit fnbValidateDir result|True|
 
 
 
