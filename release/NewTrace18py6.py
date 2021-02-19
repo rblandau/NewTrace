@@ -246,7 +246,7 @@ class CNewTrace(object):
         self.getDefaults()
 
 
-    def getDefaults(self, mylevel=7, mytarget=5, myfile="", myfacil=""):
+    def getDefaults(self, mylevel=0, mytarget=1, myfile="", myfacil=""):
         '''Collect defaults from the environment. '''
         btraceproduction = (os.getenv("TRACE_PRODUCTION", "NO") == "YES")
         btimehires = (not (os.getenv("TRACE_TIME", "") == ""))
@@ -651,6 +651,7 @@ else:
 #               Separate getting and setting the environmental defaults
 #                to make it easier to test using setDefaults().
 #               Redo facility checking in ntracef() for runtime performance.  
+# 20210219  RBL Correct defaults for level and target, oops.  
 # 
 # 
 
