@@ -253,7 +253,7 @@ class CNewTrace(object):
         try:
             tracelevel = int(os.getenv("TRACE_LEVEL", mylevel))
         except ValueError:      # If not integer, take default.
-            pass
+            tracelevel = 0
         try:
             tracetarget = int(os.getenv("TRACE_TARGET", mytarget))
         except ValueError:      # If not integer, take default.
