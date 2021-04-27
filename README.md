@@ -14,6 +14,61 @@ This facility provides
 
 This code works with Python versions 2 and 3.  
 
+## Ten-cent Tutorial Tour
+
+We have all sprinkled print statments through our code to observe what the code is actually doing at runtime.  This facility is a greatly improved version of that type of printing.  
+
+Using the NewTrace facility, if you simply change your debugging print statement from
+
+    print("some information that will help me understand this")
+
+to 
+
+    NTRC.ntrace(3, "some information that will help me understand this")
+
+your debug printing will immediately receive the following advantages.
+
+- You can turn the debug printing ON and OFF *without editing the source code*.
+
+- You can print to a log file instead of stdout *without editing the source code*.
+
+- You can choose the level of detail that you want to see printed *without editing the source code*.  
+
+These changes can be controlled by defining system environment variables without the need to edit the source code.  For example, 
+
+    export TRACE_LEVEL=3
+    export TRACE_LOG=./mydebuglogfile.log
+    # on Linux or Cygwin/Windows bash
+
+or 
+
+    set TRACE_LEVEL=3
+    set TRACE_LOG=.\mydebuglogfile.log
+    # on Windows cmd
+
+will turn on debug printing and send the output to a log file you can examine later.  The log file is, of course, optional; normally NewTrace debug printing goes to stdout.  
+
+And un-defining the same environment variables will turn off debug printing.  
+
+Note: Yes, your program has to import some code from the NewTrace module.
+
+    from NewTrace import NTRC
+
+And the NewTrace facility also has decorators for functions that will print entry and exit from a function, including input arguments and return value.  These are controlled by the same environment variables.  
+
+Simply add a decorator to your function definition
+
+    @ntrace
+    def myfunction(someargs):
+     . . . 
+
+Note: Yes, the decorator definition must be imported.
+
+    from NewTrace import ntrace
+
+It's as easy as all that.  
+
+
 ## Intended Use Caveat
 
 This facility is **not** intended to do the same job as the Python logging facility.  It **is** intended to be a permanently-installed tracelog function for debugging running code.  This may be useful during initial development and during deployment and production use, should problems arise.  
