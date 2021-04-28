@@ -1,0 +1,23 @@
+Typical output of example3.py
+
+
+$ export TRACE_LEVEL=
+$ python3 example3.py
+Hello, Steve, Bill, Yash:
+Hello, Steve, Bill, Yash, Kapil, John, Amir:
+
+
+$ export TRACE_LEVEL=3
+$ python3 example3.py
+20210427_222020 1       DEBUGTRACE info level|3| targets|1| facil|| file|| time|False| html|<br>| | production|False|
+20210427_222020 1       entr greet2 args=('Steve', 'Bill', 'Yash'),kw={}
+20210427_222020 3       proc namelist=('Steve', 'Bill', 'Yash')
+Hello, Steve, Bill, Yash:
+20210427_222020 1       exit greet2 result|None|
+20210427_222020 1       entr greet2 args=('Steve', 'Bill', 'Yash', 'Kapil', 'John', 'Amir'),kw={}
+20210427_222020 3       proc namelist=('Steve', 'Bill', 'Yash', 'Kapil', 'John', 'Amir')
+Hello, Steve, Bill, Yash, Kapil, John, Amir:
+20210427_222020 1       exit greet2 result|None|
+
+
+    

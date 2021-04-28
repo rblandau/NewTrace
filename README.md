@@ -16,9 +16,9 @@ This code works with Python versions 2 and 3.
 
 ## Ten-cent Tutorial Tour
 
-We have all sprinkled print statments through our code to observe what the code is actually doing at runtime.  This facility is a greatly improved version of that type of printing.  
+We have all sprinkled print() statments through our code to observe what the code is actually doing at runtime.  This facility is a greatly improved version of that type of printing.  
 
-Using the NewTrace facility, if you simply change your debugging print statement from
+Using the NewTrace facility, if you simply change your debugging print() statement from
 
     print("some information that will help me understand this")
 
@@ -33,6 +33,8 @@ your debug printing will immediately receive the following advantages.
 - You can print to a log file instead of stdout *without editing the source code*.
 
 - You can choose the level of detail that you want to see printed *without editing the source code*.  
+
+- Every line will include a date-and-time stamp.
 
 These changes can be controlled by defining system environment variables without the need to edit the source code.  For example, 
 
@@ -49,6 +51,8 @@ or
 will turn on debug printing and send the output to a log file you can examine later.  The log file is, of course, optional; normally NewTrace debug printing goes to stdout.  
 
 And un-defining the same environment variables will turn off debug printing.  
+
+The string to be printed may be any string that would work with print(); the string is evaluated before the ntrace() function is called.  
 
 Note: Yes, your program has to import some code from the NewTrace module.
 
@@ -258,7 +262,7 @@ Input argument names cannot be identified by the decorator version of `ntrace()`
     @ntracef("ABCD")            for calls associated with a facility ABCD
     @ntracef("ABCD", level=5)   for calls with facility code and detail priority level
 
-As usual, the facility code should be max four letters to preserve alignment and should be all caps for legibility.  The `@ntrace` decorator prints entry at level 1 and exit at level 2.
+As usual, the facility code should be max four letters to preserve alignment and should be all caps for legibility.  The `@ntrace` decorator prints entry and exit at level 1.
 
 The `@ntracef()` decorator also supports an optional level argument to change the trace level of the entry and exit lines.  This can be specified  positionally or keyword, e.g., `@ntracef("FOO",2)` or `@ntracef("FOO",level=2)`.
 

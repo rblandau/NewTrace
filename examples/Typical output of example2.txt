@@ -1,0 +1,20 @@
+Typical output of examples.py
+
+
+$ export TRACE_LEVEL=
+$ python3 example2.py
+The absolute value of 2 is 2
+The absolute value of -4 is 4
+
+
+$ export TRACE_LEVEL=3
+$ python3 example2.py
+20210427_221401 1       DEBUGTRACE info level|3| targets|1| facil|| file|| time|False| html|<br>| | production|False|
+20210427_221401 1       entr absolute_value args=(2,),kw={}
+20210427_221401 1       exit absolute_value result|2|
+The absolute value of 2 is 2
+20210427_221401 1       entr absolute_value args=(-4,),kw={}
+20210427_221401 1       exit absolute_value result|4|
+The absolute value of -4 is 4
+
+

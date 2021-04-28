@@ -1,0 +1,19 @@
+Typical output from example1.py
+
+
+$ export TRACE_LEVEL=
+$ python3 example1.py
+Looking for grades of student Jules
+Marks for student Jules = 55
+
+
+$ export TRACE_LEVEL=3
+$ python3 example1.py
+20210427_220246 1       DEBUGTRACE info level|3| targets|1| facil|| file|| time|False| html|<br>| | production|False|
+Looking for grades of student Arthur
+20210427_220246 3       found James, looking for Arthur
+20210427_220246 3       found Jules, looking for Arthur
+20210427_220246 3       found Arthur, looking for Arthur
+Marks for student Arthur = 77
+
+
