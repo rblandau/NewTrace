@@ -1,0 +1,99 @@
+
+# program to display student's marks from record
+marks = {'James': 90, 'Jules': 55, 'Arthur': 77}
+student_name = 'Soyuj'
+print("Looking for grades of student " + student_name)
+for student in marks.keys():
+    NTRC.ntrace(3, f'found {student}, looking for {student_name}')
+    if student == student_name:
+        print("Marks for student {student_name} = {marks[student]})
+        break
+else:
+    print('No entry with that name found.')
+
+
+
+@ntrace
+def absolute_value(num):
+    """ This function returns the absolute
+        value of the entered number."""
+    if num >= 0:
+        return num
+    else:
+        return -num
+
+num = 2
+print(f'The absolute value of {num} is {absolute_value(num)}')
+num = -4
+print(f'The absolute value of {num} is {absolute_value(num)}'
+
+
+
+>>> def fib(n):    # write Fibonacci series up to n
+...     """Print a Fibonacci series up to n."""
+...     a, b = 0, 1
+...     while a < n:
+...         print(a, end=' ')
+...         a, b = b, a+b
+...     print()
+...
+>>> # Now call the function we just defined:
+... fib(2000)
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597
+
+
+
+
+>>> def fib2(n):  # return Fibonacci series up to n
+...     """Return a list containing the Fibonacci series up to n."""
+...     result = []
+...     a, b = 0, 1
+...     while a < n:
+...         result.append(a)    # see below
+...         a, b = b, a+b
+...     return result
+...
+>>> f100 = fib2(100)    # call it
+>>> f100                # write the result
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+
+
+
+
+@ntrace
+def square(number):
+    return number * number
+
+for x in range(1,4):
+    print(square(x))
+
+
+
+def greet(*names):
+	i=0
+	print('Hello ', end='')
+	while len(names) > i:
+		print(names[i], end=', ')
+		i+=1
+
+greet('Steve', 'Bill', 'Yash') 
+greet('Steve', 'Bill', 'Yash', 'Kapil', 'John', 'Amir') 
+
+
+
+
+from NewTrace import ntrace, NTRC
+@ntrace
+def greet2(*names):
+    NTRC.ntrace(3, f"proc namelist={names!r}")
+    print('Hello', end='')
+    for name in names:
+        print(', ' + name, end='')
+    print(':')
+        
+
+greet2('Steve', 'Bill', 'Yash') 
+greet2('Steve', 'Bill', 'Yash', 'Kapil', 'John', 'Amir') 
+
+
+

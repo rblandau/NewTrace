@@ -3,7 +3,7 @@
 # 
 # 
 """
-NewTrace18py6 trace module
+NewTrace19py6 trace module
                                 RBLandau 20080226
                                 updated  20080830
                                 updated  20081003
@@ -24,8 +24,10 @@ NewTrace18py6 trace module
                                 updated  20181121
                                 updated  20201218
                                 updated  20210202
+                                updated  20210427
                                 
-  Copyright (C) 2008,2009,2014,2015,2016,2017,2018,2020,2021 Richard Landau.  All rights reserved.
+  Copyright (C) 2008,2009,2014,2015,2016,2017,2018,2020,2021 Richard Landau.  
+  All rights reserved.
   
   Redistribution and use in source and binary forms, with or
   without modification, are permitted provided that the following
@@ -62,7 +64,6 @@ NewTrace18py6 trace module
 from __future__ import print_function
 import time
 import os
-import re
 import datetime
 from functools  import wraps
 
@@ -246,6 +247,7 @@ class CNewTrace(object):
         self.getDefaults()
 
 
+# g e t D e f a u l t s 
     def getDefaults(self, mylevel=0, mytarget=1, myfile="", myfacil=""):
         '''Collect defaults from the environment. '''
         btraceproduction = (os.getenv("TRACE_PRODUCTION", "NO") == "YES")
@@ -334,9 +336,10 @@ class CNewTrace(object):
 
 
 # n t r a c e     trace with no identified facility name.
-    # Old style, calls new style.
-    def trace(self, level, line):
-        self.ntrace(level, line)
+    if 0:
+        # Old style, calls new style.
+        def trace(self, level, line):
+            self.ntrace(level, line)
 
 
     def ntrace(self, level, line):
@@ -368,9 +371,10 @@ class CNewTrace(object):
 
 
 # n t r a c e f   trace associated with a named facility.
-    # Old style, calls new style.
-    def tracef(self, level, facility, line):
-        self.ntracef(level, facility, line)
+    if 0:
+        # Old style, calls new style.
+        def tracef(self, level, facility, line):
+            self.ntracef(level, facility, line)
 
 
     def ntracef(self, level, facility, line):
@@ -479,8 +483,10 @@ class CSingletonNewTrace(CNewTrace):
 
 # NEW VERSION NTRC
 NTRC = CSingletonNewTrace()
-# OLD VERSION TRC
-TRC = CSingletonNewTrace()
+
+if 0:
+    # OLD VERSION TRC
+    TRC = CSingletonNewTrace()
 
 
 # D e c o r a t o r s 
@@ -519,19 +525,20 @@ else:
         return wrap2
 
 
-# OLD VERSION @trace
-if NTRC.isProduction():
-    def trace(func):
-        return func
-else:
-    def trace(func):
-        def wrap2(*args,**kwargs):
-            TRC.trace(1,"entr %s args=%s,kw=%s" % (func.__name__,args,kwargs))
-            result = func(*args,**kwargs)
-            TRC.trace(1,"exit %s result|%s|" % (func.__name__,result))
-            return result
-        wrap2.__name__ = func.__name__
-        return wrap2
+if 0:
+    # OLD VERSION @trace
+    if NTRC.isProduction():
+        def trace(func):
+            return func
+    else:
+        def trace(func):
+            def wrap2(*args,**kwargs):
+                TRC.trace(1,"entr %s args=%s,kw=%s" % (func.__name__,args,kwargs))
+                result = func(*args,**kwargs)
+                TRC.trace(1,"exit %s result|%s|" % (func.__name__,result))
+                return result
+            wrap2.__name__ = func.__name__
+            return wrap2
 
 
 # Decorator with facility code and priority level.  
@@ -570,34 +577,35 @@ else:
         return tracefinner
 
 
-# OLD VERSION @tracef
-if NTRC.isProduction():
-    def tracef(facil="",level=1):
-        def tracefinner(func):
-            return func
-        return tracefinner
-else:
-    def tracef(facil="",level=1):
-        def tracefinner(func):
-            def wrap1(*args,**kwargs):
-                if len(args)>0 and str(type(args[0])).find("class") >= 0:
-                    _id = getattr(args[0],"ID","")
-                    TRC.tracef(level,facil,"entr %s args=<%s id=|%s|> |%s| kw=%s" % (func.__name__,args[0].__class__.__name__,_id,args[1:],kwargs))
-                else:
-                    TRC.tracef(level,facil,"entr %s args=%s,kw=%s" 
-                        % (func.__name__,args,kwargs))
-                result = func(*args,**kwargs)
-                if len(args)>0 and str(type(args[0])).find("class") >= 0:
-                    _id = getattr(args[0],"ID","")
-                    TRC.tracef(level,facil,"exit %s <%s id=|%s|> result|%s|" 
-                        % (func.__name__,args[0].__class__.__name__,_id,result))
-                else:
-                    TRC.tracef(level,facil,"exit %s result|%s|" 
-                        % (func.__name__,result))
-                return result
-            wrap1.__name__ = func.__name__
-            return wrap1
-        return tracefinner
+if 0:
+    # OLD VERSION @tracef
+    if NTRC.isProduction():
+        def tracef(facil="",level=1):
+            def tracefinner(func):
+                return func
+            return tracefinner
+    else:
+        def tracef(facil="",level=1):
+            def tracefinner(func):
+                def wrap1(*args,**kwargs):
+                    if len(args)>0 and str(type(args[0])).find("class") >= 0:
+                        _id = getattr(args[0],"ID","")
+                        TRC.tracef(level,facil,"entr %s args=<%s id=|%s|> |%s| kw=%s" % (func.__name__,args[0].__class__.__name__,_id,args[1:],kwargs))
+                    else:
+                        TRC.tracef(level,facil,"entr %s args=%s,kw=%s" 
+                            % (func.__name__,args,kwargs))
+                    result = func(*args,**kwargs)
+                    if len(args)>0 and str(type(args[0])).find("class") >= 0:
+                        _id = getattr(args[0],"ID","")
+                        TRC.tracef(level,facil,"exit %s <%s id=|%s|> result|%s|" 
+                            % (func.__name__,args[0].__class__.__name__,_id,result))
+                    else:
+                        TRC.tracef(level,facil,"exit %s result|%s|" 
+                            % (func.__name__,result))
+                    return result
+                wrap1.__name__ = func.__name__
+                return wrap1
+            return tracefinner
 
 
 # Edit history:
@@ -652,7 +660,11 @@ else:
 #                to make it easier to test using setDefaults().
 #               Redo facility checking in ntracef() for runtime performance.  
 # 20210219  RBL Correct defaults for level and target, oops.  
+# 20210427  RBL NewTrace19py6: Remove old trace (vs ntrace) code with if-zero.  
+#                This will fix the double-introducer-line appearance.  
+#               Remove import of re, no longer used.
 # 
 # 
+
 
 #END
