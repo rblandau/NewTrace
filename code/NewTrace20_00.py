@@ -3,7 +3,7 @@
 # 
 # 
 """
-NewTrace19py6 trace module
+NewTrace20_00.py trace module
                                 RBLandau 20080226
                                 updated  20080830
                                 updated  20081003
@@ -25,6 +25,7 @@ NewTrace19py6 trace module
                                 updated  20201218
                                 updated  20210202
                                 updated  20210427
+                                updated  20210826
                                 
   Copyright (C) 2008,2009,2014,2015,2016,2017,2018,2020,2021 Richard Landau.  
   All rights reserved.
@@ -255,11 +256,11 @@ class CNewTrace(object):
         try:
             tracelevel = int(os.getenv("TRACE_LEVEL", mylevel))
         except ValueError:      # If not integer, take default.
-            tracelevel = 0
+            tracelevel = mylevel
         try:
             tracetarget = int(os.getenv("TRACE_TARGET", mytarget))
         except ValueError:      # If not integer, take default.
-            pass
+            tracetarget = mytarget
         tracefile = os.getenv("TRACE_FILE", myfile)
         tracefacil = os.getenv("TRACE_FACIL", myfacil).upper()
         tracehtml = os.getenv("TRACE_HTML", "<br>| ")
@@ -663,6 +664,9 @@ if 0:
 # 20210427  RBL NewTrace19py6: Remove old trace (vs ntrace) code with if-zero.  
 #                This will fix the double-introducer-line appearance.  
 #               Remove import of re, no longer used.
+# 20210826  RBL Change version numbering scheme; this is 20_00, major version
+#                and patch level.  
+#               Fix oops with tracetarget not being defined sometimes.  
 # 
 # 
 
